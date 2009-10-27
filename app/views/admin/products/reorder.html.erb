@@ -1,0 +1,27 @@
+<style>
+li .handle {
+  font-size: 12px;
+  cursor: move;
+  color: #777;
+}
+</style>
+
+<%= render :partial => 'admin/shared/product_sub_menu' %>
+
+
+
+<h1>Reorder Products</h1>
+<h3>Drag the products up and down to adjust the order in which they are displayed</h3><br>
+	<ul id="item_list">
+
+	<% for product in @products %>
+	<% content_tag_for(:li, product, :style => "list-style: none;") do %>
+	    <%#= image_tag(product.catalog_image.url(:thumb), :class => 'handle') %>
+			<span class="handle">[drag]</span> <%= product.name %>
+			<br /><br />
+	  <% end %>
+	<% end %>
+	
+	</ul>
+
+<%= sortable_element("item_list", :url => { :action => :order_products, :id => product }, :handle => "handle") %>
